@@ -6,15 +6,15 @@
 
 (define-binding-type ∀)
 
-(define-typed-syntax (Λ τvar:id e) ≫
-  [[τvar ≫ τvar- : #%type] ⊢ e ≫ e- ⇒ τ]
+(define-typed-syntax (Λ (τvar:id ...) e) ≫
+  [([τvar ≫ τvar- : #%type] ...) () ⊢ e ≫ e- ⇒ τ]
   --------
-  [⊢ e- ⇒ (∀ (τvar-) τ)])
+  [⊢ e- ⇒ (∀ (τvar- ...) τ)])
 
 (define-typed-syntax inst
-  [(_ e τ:type) ≫
-   [⊢ e ≫ e- ⇒ (~∀ τvar τbody)]
-   #:with τ_inst (substs #'τ.norm #'τvar #'τbody)
+  [(_ e τ:type ...) ≫
+   [⊢ e ≫ e- ⇒ (~∀ τvars τbody)]
+   #:with τ_inst (substs #'(τ.norm ...) #'τvars #'τbody)
    --------
    [⊢ e- ⇒ τ_inst]]
   [(_ e) ≫

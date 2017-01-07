@@ -1,5 +1,5 @@
 #lang turnstile/lang
-(provide (type-out → Nat) λ #%app #%datum (typed-out [[add1 : (→ Nat Nat)] S]) ann)
+(provide (type-out → Nat) λ #%app #%datum (typed-out [[add1 : (→ Nat Nat)] S]))
 
 (define-type-constructor → #:arity = 2)
 (define-typed-syntax (λ (x:id : τ_in:type) e) ≫
@@ -12,9 +12,6 @@
   ------
   [⊢ (#%app- e_fn- e_arg-) ⇒ τ_out])
 (define-base-type Nat)
-(define-syntax (type-alias stx)
-  (syntax-parse stx))
-(define-primop add1 : (→ Nat Nat))
 (define-typed-syntax #%datum
   [(_ . n:nat) ≫
    ------
@@ -25,8 +22,3 @@
   [(_ . x) ≫
    --------
    [_ #:error (type-error #:src #'x #:msg "Unsupported literal: ~v" #'x)]])
-
-(define-typed-syntax (ann e (~datum :) τ:type) ≫
-  [⊢ e ≫ e- ⇐ τ.norm]
-  --------
-  [⊢ e- ⇒ τ.norm])
