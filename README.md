@@ -1,0 +1,1 @@
+This is a proof of concept project intended to implement System F using the Racket library Turnstile, then System F code into GHC Core
