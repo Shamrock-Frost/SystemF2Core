@@ -2,7 +2,7 @@
 
 (extends "stlc.rkt")
 
-(provide (type-out ∀) Λ inst define-type-alias)
+(provide (type-out ∀) Λ inst vals)
 
 (define-binding-type ∀)
 
@@ -20,9 +20,7 @@
   [(_ e) ≫
    --------
    [≻ e]])
-
-(define-syntax define-type-alias
+(define-syntax vals
   (syntax-parser
-    [(_ alias:id τ:any-type)
-     #'(define-syntax- alias
-         (make-variable-like-transformer #'τ))]))
+    [(_ e:expr ...)
+     #'(values- e ...)]))

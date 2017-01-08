@@ -1,3 +1,6 @@
 #lang s-exp "./stlc.rkt"
-((λ[add2 : (→ Nat Nat)] (add2 5)) ;equivalent to (let [add2 ...] (add2 5))
- (λ[x : Nat] (S (S x)))) ;adds two to its argument
+(define-type-alias NatFn (→ Nat Nat))
+
+(let [(add2 : NatFn) (λ[x : Nat] (S (S x)))]
+  (let [(x : Nat) 5]
+   (add2 x)))
