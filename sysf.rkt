@@ -2,7 +2,7 @@
 
 (extends "stlc.rkt")
 
-(provide (type-out ∀) Λ inst vals)
+(provide (type-out ∀) Λ inst)
 
 (define-binding-type ∀)
 
@@ -20,7 +20,6 @@
   [(_ e) ≫
    --------
    [≻ e]])
-(define-syntax vals
-  (syntax-parser
-    [(_ e:expr ...)
-     #'(values- e ...)]))
+
+#;(begin-for-syntax
+  (struct AST []))

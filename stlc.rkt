@@ -38,19 +38,17 @@
      #'(define-syntax- alias
          (make-variable-like-transformer #'τ))]))
 
+(begin-for-syntax
+  (define (mentioned name)
+    (λ(stx)
+      (or (and (identifier? stx) (free-identifier=? name stx))
+          (let ([ls (syntax->list stx)])
+               (and ls (ormap (mentioned name) ls)))))))
+
 (define-typed-syntax define
   [(_ x:id : τ:type e:expr) ≫
-   ;This wouldn't work with mutually recursive definitions
-   ;[⊢ [e ≫ e- ⇐ τ.norm]]
-   ;So expand to an ann form instead.
+   #:fail-when ((mentioned #'x) #'e) "Recursion isn't allowed in this λ Calculus!"
    --------
    [≻ (begin-
         (define-syntax x (make-rename-transformer (⊢ y : τ.norm)))
-        (define- y (ann e : τ.norm)))]]
-  [(_ x:id e) ≫
-   [⊢ e ≫ e- ⇒ τ]
-   #:with y (generate-temporary #'x)
-   --------
-   [≻ (begin-
-        (define-syntax x (make-rename-transformer (⊢ y : τ)))
-        (define- y e-))]])
+        (define- y (ann e : τ.norm)))]])
