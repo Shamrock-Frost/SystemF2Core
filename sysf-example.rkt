@@ -1,4 +1,4 @@
-#lang s-exp "./sysf.rkt"
+#lang s-exp "./sysf-core.rkt"
 (define-type-alias Bool (∀[τ] (→ τ (→ τ τ))))
 (define-type-alias BinaryBoolOperator (→ Bool (→ Bool Bool)))
 (define-type-alias CNat (∀[τ] (→ (→ τ τ) (→ τ τ))))
