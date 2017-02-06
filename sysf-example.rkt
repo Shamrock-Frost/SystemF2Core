@@ -1,4 +1,4 @@
-#lang s-exp "./sysf-core.rkt"
+#lang s-exp "./sysf.rkt"
 (define-type-alias Bool (∀[τ] (→ τ (→ τ τ))))
 (define-type-alias BinaryBoolOperator (→ Bool (→ Bool Bool)))
 (define-type-alias CNat (∀[τ] (→ (→ τ τ) (→ τ τ))))
@@ -7,7 +7,7 @@
 (define to-nat  : (→ CNat Nat) (λ[n : CNat] (((inst n Nat) S) 0)))
 (define ⊤ : Bool (Λ[τ] (λ[then : τ] (λ[else : τ] then)))) ; True
 (define ⊥ : Bool (Λ[τ] (λ[then : τ] (λ[else : τ] else)))) ; False
-(define ∧ : BinaryBoolOperator (λ[p : Bool] (λ[q : Bool] (((inst p Bool) q) ⊥)))) ; And
+(define ∧ : BinaryBoolOperator (λ[p : Bool] (λ[q : Bool] (((inst p Bool) q) ⊥)))) ; And 
 (define ∨ : BinaryBoolOperator (λ[p : Bool] (λ[q : Bool] (((inst p Bool) ⊤) q)))) ; Or
 
 (to-bool ((∧ ⊤) ⊤))

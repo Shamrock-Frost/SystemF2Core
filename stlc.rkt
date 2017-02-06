@@ -48,6 +48,7 @@
 (define-typed-syntax define
   [(_ x:id : τ:type e:expr) ≫
    #:fail-when ((mentioned #'x) #'e) "Recursion isn't allowed in this λ Calculus!"
+   #:with y (generate-temporary)
    --------
    [≻ (begin-
         (define-syntax x (make-rename-transformer (⊢ y : τ.norm)))

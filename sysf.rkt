@@ -1,4 +1,4 @@
-#lang turnstile/lang
+#lang turnstile
 
 (extends "stlc.rkt")
 
